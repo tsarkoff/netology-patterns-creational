@@ -5,10 +5,10 @@ public class PersonBuilder {
     private String surname = "";
     private int age = -1;
     private String city = "";
-    private final String errMsg = "\nError. IllegalArgumentException. Person's %s (%s) is incorrect";
+    private final String errMsg = "\nError. IllegalArgumentException.\n - Person's %s (%s) is incorrect";
 
     public PersonBuilder setName(String name) {
-        if (name == null || name.isEmpty() || name.isBlank()) {
+        if (name == null || name.isBlank()) {
             throw new IllegalArgumentException(format(errMsg, "name", name));
         }
         this.name = name;
@@ -16,7 +16,7 @@ public class PersonBuilder {
     }
 
     public PersonBuilder setSurname(String surname) {
-        if (surname == null || surname.isEmpty() || surname.isBlank()) {
+        if (surname == null || surname.isBlank()) {
             throw new IllegalArgumentException(format(errMsg, "surname", surname));
         }
         this.surname = surname;
@@ -24,7 +24,7 @@ public class PersonBuilder {
     }
 
     public PersonBuilder setAge(int age) {
-        if (age < 0) {
+        if (age < 0 || age > 130) {
             throw new IllegalArgumentException(format(errMsg, "age", age));
         }
         this.age = age;
@@ -38,17 +38,17 @@ public class PersonBuilder {
 
     public Person build() {
         String msg = "";
-        if (name.isEmpty()) {
+        if (name.isBlank()) {
             msg += "\n - name";
         }
-        if (surname.isEmpty()) {
+        if (surname.isBlank()) {
             msg += "\n - surname";
         }
         if (age == -1) {
             msg += "\n - age";
         }
-        if (!msg.isEmpty()) {
-            msg = "\nError. Impossible to build a Person due to the next unset parameter(s):" + msg;
+        if (!msg.isBlank()) {
+            msg = "\nError. IllegalStateException. Impossible to build a Person due to the next unset parameter(s):" + msg;
             throw new IllegalStateException(msg);
         }
         return new Person(name, surname, age).setAddress(city);

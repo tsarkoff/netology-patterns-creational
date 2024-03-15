@@ -4,12 +4,7 @@ public class Person {
     protected final String name;
     protected final String surname;
     protected int age = -1;
-    protected String city;
-
-    public Person(String name, String surname) {
-        this.name = name;
-        this.surname = surname;
-    }
+    protected String city = "";
 
     public Person(String name, String surname, int age) {
         this.age = age;
@@ -22,7 +17,7 @@ public class Person {
     }
 
     public boolean hasAddress() {
-        return city != null && !city.isEmpty() && !city.isBlank();
+        return !city.isBlank();
     }
 
     public String getName() {
@@ -49,7 +44,7 @@ public class Person {
     }
 
     public Person setAddress(String address) {
-        if (address != null && !address.isBlank() && !address.isEmpty()) {
+        if (address != null && !address.isBlank()) {
             this.city = address;
         }
         return this;
@@ -66,11 +61,11 @@ public class Person {
 
     @Override
     public String toString() {
-        return "Person{" +
+        return "Person { " +
                 "name='" + name + '\'' +
                 ", surname='" + surname + '\'' +
                 ", age=" + age +
                 ", city='" + city + '\'' +
-                '}';
+                " }";
     }
 }
