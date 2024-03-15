@@ -4,7 +4,12 @@ public class Person {
     protected final String name;
     protected final String surname;
     protected int age = -1;
-    protected String city = "";
+    protected String city;
+
+    public Person(String name, String surname) {
+        this.name = name;
+        this.surname = surname;
+    }
 
     public Person(String name, String surname, int age) {
         this.age = age;
@@ -29,7 +34,7 @@ public class Person {
     }
 
     public OptionalInt getAge() {
-        return OptionalInt.of(age);
+        return hasAge() ? OptionalInt.of(age) : OptionalInt.empty();
     }
 
     public Person setAge(int age) {
@@ -40,7 +45,7 @@ public class Person {
     }
 
     public String getAddress() {
-        return city;
+        return hasAddress() ? city : null;
     }
 
     public Person setAddress(String address) {
